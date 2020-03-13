@@ -19,6 +19,7 @@ import java.util.List;
 public class LerArquivo{
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		
 		String arquivo1 = ("C:\\Users\\Qintess\\Desktop\\Projetos Git\\ProjetoLerArquivo\\DadosMercado.csv");
 		String arquivo2 = ("C:\\Users\\Qintess\\Desktop\\Projetos Git\\ProjetoLerArquivo\\Operacoes.csv");
 		String arquivo3 =("C:\\Users\\Qintess\\Desktop\\Projetos Git\\ProjetoLerArquivo\\Resultado.csv");
@@ -35,20 +36,22 @@ public class LerArquivo{
 			
 			FileReader input1 = new FileReader(arquivo1);
 			FileReader input2 = new FileReader(arquivo2);
+			FileReader input3 = new FileReader(arquivo3);
 			
 			
 			BufferedReader lerMercado = new BufferedReader(input1);
 			BufferedReader lerOperacao = new BufferedReader(input2);
+			BufferedReader lerResultado = new BufferedReader(input3);
 
 			
 			String calendario = "dd/MM/yyyy";
 			SimpleDateFormat sdf = new SimpleDateFormat(calendario);
 			
 			Boolean primeiro = true;
-			String nomeAtual = null;
-			double soma = 0;
-			String nomeAnterior = null;
-			boolean naoEncontrato = false;
+			String nome1 = null;
+			double totalResultado = 0;
+			String nome2 = null;
+			boolean nEncontrado = false;
 			
 			
 			
@@ -104,7 +107,7 @@ public class LerArquivo{
 		lerOperacao.close();
 		
 		for(Operacao operacao : listaOp) {
-			naoEncontrato = true;
+			
 			
 			for(DadosMercados dadosMercados : listaMercado) {
 				
@@ -113,51 +116,58 @@ public class LerArquivo{
 					
 					listaResultado.add(new Resultado(operacao.getNm_subproduto(), 
 							(operacao.getQuantidade()* dadosMercados.getVl_preco())));
-					naoEncontrato = false;
+					
 					break;
-				}else {
-					naoEncontrato = true;
 				}
-			}
-			    if (naoEncontrato == true) {
-			    	listaResultado.add(new Resultado(operacao.getNm_subproduto(),0));
-			    }
+			  }
+			   
 			}
 			
 			Collections.sort(listaResultado);
-			
 
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(arquivo3));
-			bufferWriter.write("SubProduto;Resultado\n");
+			bufferWriter.write("SubProduto | Resultado\n");
 			
 			for(Resultado resultado : listaResultado) {
+				nome1 = resultado.getNm_subproduto().toString();
 				
-				nomeAtual = resultado.getNm_subproduto().toString();
-				if (nomeAtual.equals(nomeAnterior)) {
+				if (nome1.equals(nome2)) {
 					
 					if(primeiro == false) {
-						soma = soma + resultado.getResultado();
-					
+						totalResultado = totalResultado + resultado.getResultado();
+						
 					}else {
 						primeiro = false;
 					}
 					
 				}else {
-					bufferWriter.write(nomeAnterior+";"+ Double.toString(soma).replace(".", ",")+"\n");
-					soma = resultado.getResultado();
-					nomeAnterior = resultado.getNm_subproduto();
+					bufferWriter.write(nome2+" | "+ Double.toString(totalResultado).replace(".", ",")+"\n");
+					totalResultado = resultado.getResultado();
+					nome2 = resultado.getNm_subproduto();
+					
 				}
+				
 			}
 			
-			bufferWriter.write(nomeAnterior+";"+ Double.toString(soma).replace(".", ",")+"\n");
+			//bufferWriter.write(nome2+" | "+ Double.toString(totalResultado).replace(".", ",")+"\n");
 			bufferWriter.close();
+			
+			String linhaResultado;
+			
+			long fim = System.currentTimeMillis();
+			System.out.println("Tempo: "+ ((fim - inicio)/1000)+ "s\n\n");
+			
+			while ((linhaResultado = lerResultado.readLine()) != null) {
+				
+				System.out.println(linhaResultado);
+			}
 			
 		}catch(Exception e) {
 			System.err.printf("ERRO: %s. \n ", e.getLocalizedMessage());
 		}
 		
-		long fim = System.currentTimeMillis();
-		System.out.println("Tempo: "+ ((fim - inicio)/1000)+ "s");
+		
+		
 	}
 		
 }
