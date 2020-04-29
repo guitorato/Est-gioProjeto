@@ -1,10 +1,16 @@
 package com.qintess.evento.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CasaDeShow {
@@ -42,7 +48,33 @@ public class CasaDeShow {
 	@Column(nullable = false)
 	private String telefone;
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "casadeshow")     
+	private List<Evento> listEventos = new ArrayList<>(); 
 	
+	
+	public CasaDeShow() {}
+	public CasaDeShow(int id, String nome, int capacidade, String logdradouro, String complemento, String numero,
+			String bairro, String cidade, String uf, String cep, String telefone) {
+		this.id = id;
+		this.nome = nome;
+		this.capacidade = capacidade;
+		this.logdradouro = logdradouro;
+		this.complemento = complemento;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
+		this.cep = cep;
+		this.telefone = telefone;
+	}
+
+	@Override
+	public String toString() {
+		return "CasaDeShow [id=" + id + ", nome=" + nome + ", capacidade=" + capacidade + ", logdradouro=" + logdradouro
+				+ ", complemento=" + complemento + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade
+				+ ", uf=" + uf + ", cep=" + cep + ", telefone=" + telefone + "]";
+	}
+
 	public String getCidade() {
 		return cidade;
 	}

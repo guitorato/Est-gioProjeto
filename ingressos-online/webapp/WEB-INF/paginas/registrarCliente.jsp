@@ -51,7 +51,7 @@
 				<form:hidden path="id"/>
 				
 				<div class="form-group">
-				
+				<label>Nome</label>
 						<input type="text" class="form-control" placeholder="Nome"
 							    name="nome" value="${cliente.nome }" />
 				
@@ -59,12 +59,14 @@
 				
 				<div class="form-row">
 				    <div class="col-7">
+				    <label>CPF</label>
 					      <input type="text" class="form-control" 
 								onkeypress="$(this).mask('000.000.000-00')" placeholder="CPF"
 							    	name="cpf" value="${cliente.cpf }" />
 					    </div>
 					    
 					    <div class="col">
+					    <label>Data de Nascimento</label>
 						    <input type="date" class="form-control" name="dtNascimento"
 									value="${cliente.dtNascimento }" />
 					    </div>
@@ -72,20 +74,21 @@
 				
 			<br />
 				<div class="form-group">
-					
+					<label>Email</label>
 							<input type="email" class="form-control" placeholder="EMAIL"
 								    name="email" value="${cliente.email }" />
 				</div>
 				
 				<div class="form-group">
+				<label>Telefone</label>
 						<input type="tel" class="form-control" 
-						onkeypress="$(this).mask('(00) 0000-00009')" placeholder="Nº Celular"
+						onkeypress="$(this).mask('(00) 0000-00009')" placeholder="Telefone"
 							    name="telefone" value="${cliente.telefone }" />
 				
 				</div>
 				
 				<div class="form-group">
-					
+					<label>Senha</label>
 							<input type="password" class="form-control" placeholder="Senha"
 								    name="senha" value="${cliente.senha }" />
 				

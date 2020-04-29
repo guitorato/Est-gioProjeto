@@ -43,6 +43,7 @@ public class Cliente {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.EAGER)
 	private List<Compra> compras;
 	
+	
 	public Cliente () {}
 	
 	public int getId() {

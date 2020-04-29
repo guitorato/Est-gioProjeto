@@ -54,12 +54,12 @@
 				<form:hidden path="id"/>
 				
 				<div class="form-group">
-				
+				<label>Nome da Casa de Show</label>
 						<input type="text" class="form-control" placeholder="Nome da Casa de Show"
 							    name="nome" value="${casaDeShow.nome }" />
 				
 				</div>
-				
+				<label>Capacidade</label>
 				<div class="form-group">
 						<input type="number" class="form-control" placeholder="Capacidade"
 							    name="capacidade" value="${casaDeShow.capacidade }" />
@@ -67,12 +67,12 @@
 				</div>
 			
 				<div class="form-group">
-					
+					<label>Telefone</label>
 							<input type="tel" class="form-control" id="telefone"
 							onkeypress="$(telefone).mask('(00) 0000-00009')" placeholder="Telefone" 
 							name="telefone" value="${casaDeShow.telefone }" />
 				</div>
-				
+				<label>Endereço</label>
 				<div class="form-group">
 						<input type="text" class="form-control" placeholder="Endereço"
 							    name="logdradouro" value="${casaDeShow.logdradouro }" />
@@ -80,14 +80,14 @@
 				</div>
 				
 				<div class="form-group">
-			
+				<label>Número</label>
 						<input type="text" class="form-control" placeholder="Número"
 							    name="numero" value="${casaDeShow.numero }" />
 			
 				</div>
 				
 				<div class="form-group">
-					
+					<label>Complemento</label>
 							<input type="text" class="form-control" placeholder="Complemento"
 								    name="complemento" value="${casaDeShow.complemento }" />
 				
@@ -95,7 +95,7 @@
 				
 				
 				<div class="form-group">
-					
+					<label>Bairro</label>
 							<input type="text" class="form-control" placeholder="Bairro"
 								    name="bairro" value="${casaDeShow.bairro }" />
 							    
@@ -103,16 +103,19 @@
 				
 				<div class="form-row">
 				    <div class="col-7">
+				    <label>Cidade</label>
 					      <input type="text" class="form-control" placeholder="Cidade"  
 					      			name="cidade" value="${casaDeShow.cidade }">
 					    </div>
 					    
 					    <div class="col">
+					    <label>Estado</label>
 					      <input type="text" class="form-control" placeholder="Estado"
 					      				name="uf" value="${casaDeShow.uf }">
 					    </div>
 					    
 					    <div class="col">
+					    <label>CEP</label>
 					      <input type="text" class="form-control" 
 					      onkeypress="$(this).mask('00.000-000')" placeholder="CEP"
 					      		name="cep" value="${casaDeShow.cep }">

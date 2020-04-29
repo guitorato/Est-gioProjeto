@@ -2,7 +2,8 @@ package com.qintess.evento.model;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,9 +34,9 @@ public class Evento {
 	@Column(nullable = false, length = 1000 )
 	private String descricao;
 	
-	@Column(nullable = false , columnDefinition = "DATETIME")
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh.mm.ss")
-	private LocalDateTime dtEvento;
+	@Column(nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dtEvento;
 	
 	@Column(nullable = false)
 	private int qtdIngresso;
@@ -43,9 +46,12 @@ public class Evento {
 	
 	@Lob
 	@Column(columnDefinition="mediumblob")
-	private byte[] folder;
+	private byte[] imagemProd;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@Transient //esse campo não será persistido no hibernate
+	private String imagemEncoded;
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinColumn(name = "casaDeShow_id")
 	private CasaDeShow casaDeShow;
 	
@@ -54,6 +60,17 @@ public class Evento {
 
 	public Evento() {}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Evento [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dtEvento=" + dtEvento
+				+ ", qtdIngresso=" + qtdIngresso + ", valor=" + valor + ", imagemProd=" + Arrays.toString(imagemProd)
+				+ ", imagemEncoded=" + imagemEncoded + ", casaDeShow=" + casaDeShow + ", compras=" + compras + "]";
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -78,11 +95,11 @@ public class Evento {
 		this.descricao = descricao;
 	}
 
-	public LocalDateTime getDtEvento() {
+	public LocalDate getDtEvento() {
 		return dtEvento;
 	}
 
-	public void setDtEvento(LocalDateTime dtEvento) {
+	public void setDtEvento(LocalDate dtEvento) {
 		this.dtEvento = dtEvento;
 	}
 
@@ -102,14 +119,7 @@ public class Evento {
 		this.valor = valor;
 	}
 
-	public byte[] getFolder() {
-		return folder;
-	}
-
-	public void setFolder(byte[] folder) {
-		this.folder = folder;
-	}
-
+	
 	public CasaDeShow getCasaDeShow() {
 		return casaDeShow;
 	}
@@ -126,6 +136,24 @@ public class Evento {
 		this.compras = compras;
 	}
 
+	public byte[] getImagemProd() {
+		return imagemProd;
+	}
+
+	public void setImagemProd(byte[] imagemProd) {
+		this.imagemProd = imagemProd;
+	}
+
+	public String getImagemEncoded() {
+		return imagemEncoded;
+	}
+
+	public void setImagemEncoded(String imagemEncoded) {
+		this.imagemEncoded = imagemEncoded;
+	}
+
+	
+	
 	
 	
 

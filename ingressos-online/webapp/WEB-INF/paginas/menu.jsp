@@ -4,6 +4,7 @@
 
 <spring:url value="/registrarCliente" var="registrarCliente"></spring:url>
 <spring:url value="/registrarCasaShow" var="registrarCasaShow"></spring:url>
+<spring:url value="/registrarEvento" var="registrarEvento"></spring:url>
 <spring:url value="/" var="index"></spring:url>
 
 <link href='<spring:url value="/qintess/css/bootstrap.css" />' rel = "stylesheet" />
@@ -23,23 +24,29 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 			
-			<div class="collapse navbar-collapse" id="navbarSite">
-			
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="${registrarCliente}">Cadastrar Cliente</a>
-					</li>		
-					<li class="nav-item">
-						<a class="nav-link" href="${registrarCasaShow}">Cadastrar Casa de Show</a>
-					</li>	
-					<li class="nav-item">
-						<a class="nav-link" href="#	">Cadastrar Evento</a>
-					</li>					
-				</ul>
-			
-			</div>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="${index}">Home
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">${usuarioLogado.name == 'anonymousUser' ? '' : usuarioLogado.name}</a>
+				</li>
+				<!-- 
+				<li class="nav-item">
+					<c:if test="${usuarioLogado.name ne 'anonymousUser' }">
+						<a class="nav-link" href="#" >Deslogar</a>
+					</c:if>
+					<c:if test="${usuarioLogado.name eq 'anonymousUser' }">
+						<a class="nav-link" href="#" >Logar</a>
+					</c:if>
+					
+				</li>
+				 -->
+			</ul>
 		</div>
-	
-	</nav>
-	
-	<div class="mb-2"></div>
+	</div>
+</nav>
+<div class="mb-2"></div>
