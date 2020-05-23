@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.qintess.ingresso.entity.CasaDeShow;
 import com.qintess.ingresso.entity.Evento;
+import com.qintess.ingresso.repository.CasaDeShowRepository;
 import com.qintess.ingresso.repository.EventoRepository;
 
 @RestController
@@ -25,6 +27,9 @@ public class EventoController {
 	
 	@Autowired
 	private EventoRepository eventoRepos;
+	
+	@Autowired
+	private CasaDeShowRepository casaRepos;
 	
 	
 	@GetMapping("/evento")
@@ -40,10 +45,18 @@ public class EventoController {
 	}
 	
 	@PostMapping("/evento")
-	public Evento save(@RequestBody Evento evento) {
+	public List<Evento> save(@RequestBody Evento evento , CasaDeShow casaShow ) throws Exception {
 		
+		CasaDeShow casa  = casaRepos.findById(evento.getCasaDeShow().getId());
+		if(casa == null) {
 		
-		return eventoRepos.save(evento);
+			throw new Exception("Nao existe Case de Show com id informado ");
+		
+		}else {
+			
+			eventoRepos.save(evento);
+		}
+		return eventoRepos.findAll();
 	}
 
 	@DeleteMapping("/evento/{id}")
@@ -65,7 +78,7 @@ public class EventoController {
 	
 	}
 	
-	@PutMapping("/evento/{id}/image")	
+	@PutMapping("/evento/{id}/imagem")	
 	public List<Evento> putImg(@PathVariable(name = "id") int id,
 			@RequestParam(required=false, value="imagem") MultipartFile imagem) throws IOException {
 		

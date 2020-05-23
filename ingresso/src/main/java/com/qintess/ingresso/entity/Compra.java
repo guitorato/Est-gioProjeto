@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -17,11 +19,9 @@ public class Compra {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("clienteId")
 	private Cliente cliente;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("eventoId")
 	private Evento evento;
 	
 	private int qtdIngresso;
@@ -39,12 +39,14 @@ public class Compra {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@JsonIgnore
 	public Cliente getCliente() {
 		return cliente;
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	@JsonIgnore
 	public Evento getEvento() {
 		return evento;
 	}
@@ -56,6 +58,11 @@ public class Compra {
 	}
 	public void setQtdIngresso(int qtdIngresso) {
 		this.qtdIngresso = qtdIngresso;
+	}
+	@Override
+	public String toString() {
+		return "Compra [id=" + id + ", cliente=" + cliente.getId() + ", evento=" + evento.getId() 
+				+ ", qtdIngresso=" + qtdIngresso + "]";
 	}
 	
 	

@@ -41,16 +41,40 @@ public class CompraController {
 			@PathVariable(name = "eventoId") int eventoId ,
 			@PathVariable(name = "clienteId") int clienteId){
 		
+		System.out.println("Entrou no Post");
+		
 		Evento evento = eventoRepo.findById(eventoId);
 		Cliente cliente = clienteRepo.findById(clienteId);
 		
-		if(evento.getEstoque_ingresso() <= compra.getQtdIngresso()) {
+		if(evento.getEstoque_ingresso() >= compra.getQtdIngresso()) {
+			
+			System.out.println("Primeiro if total <= qtdingresso");
+			
 			if(compra.getQtdIngresso() > 0 && compra.getQtdIngresso() <= 4 ) {
+				
+				System.out.println("Segundo if qtIngresso maior que 0 e menor e igual a 4");
+				
 				int ingresso = evento.getEstoque_ingresso() - compra.getQtdIngresso();
-				compra.setCliente(cliente);
+			
+				System.out.println("antes do INT: " + ingresso);
+				
+				
 				compra.setEvento(evento);
+				
+				System.out.println("Salva evento " + evento);
+				
+				compra.setCliente(cliente);
+				
+				System.out.println("Salva cliente " + cliente);
+				
 				evento.setEstoque_ingresso(ingresso);
+				
+				System.out.println("Salva ingresso");
+				
+				
 				compraRepo.save(compra);
+				
+				System.out.println("Salva compra");
 				
 				return compraRepo.findAll();
 			}

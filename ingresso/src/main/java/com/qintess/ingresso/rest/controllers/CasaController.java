@@ -1,6 +1,7 @@
 package com.qintess.ingresso.rest.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +31,24 @@ public class CasaController {
 	}
 	
 	@GetMapping("/casa/{id}")
-	public CasaDeShow getCasaId(@PathVariable(name = "id") int id){
+	public ResponseEntity<CasaDeShow> getCasaId(@PathVariable(name = "id") int id) throws Exception {
 		
-		return casaRepos.findById(id);
+		
+		try {
+			CasaDeShow casa = casaRepos.findById(id);
+			
+			if (casa == null) {
+				throw new Exception("Nao existe essa Casa de Show com id: " + id);
+			} else {
+				return ResponseEntity.ok(casa);
+			}
+		} catch (NoSuchElementException e) {
+			throw new Exception("Nao existe essa Casa de Show com id: " + id);
+
+		}
+
 	}
+	
 	
 	@PostMapping("/casa")
 	public CasaDeShow postCasa(@RequestBody CasaDeShow casa) {
